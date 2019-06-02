@@ -1,0 +1,5 @@
+.vscode/ipch
+.secret
+build
+*.out
+__pycache__

@@ -1,0 +1,58 @@
+{
+    // See https://go.microsoft.com/fwlink/?LinkId=733558
+    // for the documentation about the tasks.json format
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "build",
+            "type": "shell",
+            "command": "g++",
+            "args": [
+                "-std=c++14",
+                "-W",
+                "-Wall",
+                "-g3",
+                "${file}",
+                "-o",
+                "${fileDirname}/build/${fileBasenameNoExtension}.exe"
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            }
+        },
+        {
+            "label": "init",
+            "type": "shell",
+            "command": "python",
+            "args": [
+                "${workspaceRoot}/app/interactive.py",
+                "init",
+                "${fileDirname}"
+            ],
+            "problemMatcher": []
+        },
+        {
+            "label": "judge",
+            "type": "shell",
+            "command": "python",
+            "args": [
+                "${workspaceRoot}/app/interactive.py",
+                "judge",
+                "${fileDirname}"
+            ],
+            "problemMatcher": []
+        },
+        {
+            "label": "submit",
+            "type": "shell",
+            "command": "python",
+            "args": [
+                "${workspaceRoot}/app/interactive.py",
+                "submit",
+                "${fileDirname}"
+            ],
+            "problemMatcher": []
+        }
+    ]
+}
