@@ -61,15 +61,25 @@ This library assumes to run in following environment:
 - Visual Studio Code
 - C++14, python3, pylint
 - cmake, gtest (for test library files)
-- (python packages)
+- python packages
+    - beautifulsoup4
+    - requests
+
 
 ## build and debug
 
 - build : `ctrl+shift+b`
     - execute file of `solve.cpp` is `build/solve.out`
-- 
 
 ## for AtCoder
 
-- login
-- submit
+### login
+
+write down username and password in `.secret/atcoder_login.json`.
+
+```json
+{
+    "username": "{{your username}}",
+    "password": "{{your password}}"
+}
+```
