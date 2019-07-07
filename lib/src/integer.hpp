@@ -37,3 +37,8 @@ long long ncr(long long n,long long r,long long *fct,long long p){
     if(n<0||n<r||r<0)return 0;
     return (fct[n]*inv(fct[r],p)%p)*inv(fct[n-r],p)%p;
 }
+
+long long npr(long long n,long long r,long long *fct,long long p){
+    if(n<0||n<r||r<0)return 0;
+    return fct[n]*inv(fct[r],p)%p;
+}

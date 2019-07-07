@@ -28,6 +28,26 @@ graph reverse(const graph &g){
     return h;
 }
 
+graph add_orientation(const graph &g, const to_t e=0){
+    graph h(g.size());
+    std::queue<to_t> qu;
+    std::vector<bool> is_visited(g.size(),false);
+    qu.push(e);
+    is_visited[e]=true;
+    while(!qu.empty()){
+        to_t a=qu.front();
+        qu.pop();
+        for(auto &v:g[a]){
+            if(!is_visited[v.to]){
+                is_visited[v.to]=true;
+                h[a].push_back(v);
+                qu.push(v.to);
+            }
+        }
+    }
+    return h;
+}
+
 void bfs(const graph &g,const to_t e){
     std::queue<to_t> qu; //bfs
     //std::stack<to_t> qu; //dfs
