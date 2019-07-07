@@ -21,6 +21,7 @@ def prejudge(sitename,setname,probname):
             t=execute.exe(probdir+"/build/solve.exe",probdir+"sample/in/"+str(sampleNo)+".txt",probdir+"build/"+str(sampleNo)+".txt")
         except:
             print("sample "+str(sampleNo)+": [TLE]")
+            return
             tle+=1
         if filecmp.cmp(probdir+"sample/out/"+str(sampleNo)+".txt",probdir+"build/"+str(sampleNo)+".txt"):
             print("sample "+str(sampleNo)+": [AC] "+str(t)+"msec")
