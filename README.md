@@ -62,8 +62,8 @@ This library assumes to run in following environment:
 - C++14, python3, pylint
 - cmake, gtest (for test library files)
 - python packages
-    - beautifulsoup4
-    - requests
+    - `bs4` beautifulsoup4
+    - `requests`
 
 
 ## build and debug

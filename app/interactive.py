@@ -5,7 +5,7 @@ import judge
 import submit
 
 if len(sys.argv)==3:
-    l=sys.argv[2].split("\\")
+    l=sys.argv[2].split("/") #linux
     sitename=l[-3]
     setname=l[-2]
     probname=l[-1]

@@ -24,7 +24,8 @@
         {
             "label": "init",
             "type": "shell",
-            "command": "python",
+            "windows": {"command": "python"},
+            "linux": {"command": "python3"},
             "args": [
                 "${workspaceRoot}/app/interactive.py",
                 "init",
@@ -35,7 +36,8 @@
         {
             "label": "judge",
             "type": "shell",
-            "command": "python",
+            "windows": {"command": "python"},
+            "linux": {"command": "python3"},
             "args": [
                 "${workspaceRoot}/app/interactive.py",
                 "judge",
@@ -46,7 +48,8 @@
         {
             "label": "submit",
             "type": "shell",
-            "command": "python",
+            "windows": {"command": "python"},
+            "linux": {"command": "python3"},
             "args": [
                 "${workspaceRoot}/app/interactive.py",
                 "submit",
