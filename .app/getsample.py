@@ -30,3 +30,4 @@ def atcoder(setname,probname):
         if isinput:
             sampleNo += 1
     print("getsample complete.")
+    

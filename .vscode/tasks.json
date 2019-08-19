@@ -14,7 +14,7 @@
                 "-g3",
                 "${file}",
                 "-o",
-                "${fileDirname}/build/${fileBasenameNoExtension}.exe"
+                "${fileDirname}/${fileBasenameNoExtension}.out"
             ],
             "group": {
                 "kind": "build",
@@ -27,9 +27,10 @@
             "windows": {"command": "python"},
             "linux": {"command": "python3"},
             "args": [
-                "${workspaceRoot}/app/interactive.py",
+                "${workspaceRoot}/.app/main.py",
                 "init",
-                "${fileDirname}"
+                "${relativeFileDirname}",
+                "${fileBasenameNoExtension}"
             ],
             "problemMatcher": []
         },
@@ -39,9 +40,10 @@
             "windows": {"command": "python"},
             "linux": {"command": "python3"},
             "args": [
-                "${workspaceRoot}/app/interactive.py",
+                "${workspaceRoot}/.app/main.py",
                 "judge",
-                "${fileDirname}"
+                "${relativeFileDirname}",
+                "${fileBasenameNoExtension}"
             ],
             "problemMatcher": []
         },
@@ -51,9 +53,21 @@
             "windows": {"command": "python"},
             "linux": {"command": "python3"},
             "args": [
-                "${workspaceRoot}/app/interactive.py",
+                "${workspaceRoot}/.app/main.py",
                 "submit",
-                "${fileDirname}"
+                "${relativeFileDirname}",
+                "${fileBasenameNoExtension}"
+            ],
+            "problemMatcher": []
+        },
+        {
+            "label": "clearall",
+            "type": "shell",
+            "windows": {"command": "python"},
+            "linux": {"command": "python3"},
+            "args": [
+                "${workspaceRoot}/.app/main.py",
+                "clearall"
             ],
             "problemMatcher": []
         }

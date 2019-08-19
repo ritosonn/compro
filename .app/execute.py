@@ -10,3 +10,4 @@ def exe(programname,infilename,outfilename):
             start = time.perf_counter()
             subprocess.run(rootdir+programname,stdin=infile,stdout=outfile,check=True,timeout=timeoutsec)
             return int(1000*(time.perf_counter() - start))
+            

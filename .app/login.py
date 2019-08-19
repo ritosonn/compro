@@ -20,3 +20,4 @@ def atcoder():
     with open(path.root()+".secret/session.pickle","wb") as fp:
         pickle.dump((s,csrftoken),fp)
     print("login complete.")
+    
