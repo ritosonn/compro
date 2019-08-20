@@ -20,6 +20,9 @@ def build_cpp(fullpath_noext):
     os.system(compile_command)
 
 def execute_program(programname,infilename,outfilename):
+    #print("program: "+programname)
+    #print("in: "+infilename)
+    #print("out: "+outfilename)
     with open(infilename,encoding="utf-8",mode="r") as infile:
         with open(outfilename,encoding="utf-8",mode="w") as outfile:
             start = time.perf_counter()
@@ -31,15 +34,14 @@ def judge_one_sample(setname,probname,sampleNo):
     out_fullpath = workspace_directory + ".out/" + sampleNo + ".txt"
     tmp_fullpath = workspace_directory + ".tmp/" + sampleNo + ".txt"
     program_fullpath = workspace_directory + setname + "/" + probname + ".out"
-    t=execute_program(program_fullpath, in_fullpath, tmp_fullpath)
-    # try:
-    #     t=execute_program(program_fullpath, in_fullpath, tmp_fullpath)
-    # except:
-    #     return {"TLE",-1}
+    try:
+        t=execute_program(program_fullpath, in_fullpath, tmp_fullpath)
+    except:
+        return "TLE",-1
     if filecmp.cmp(tmp_fullpath,out_fullpath):
-        return {"AC",t}
+        return "AC",t
     else:
-        return {"WA",t}
+        return "WA",t
 
 def judge(setname,probname):
     build_cpp(setname + "/" + probname)
@@ -47,6 +49,8 @@ def judge(setname,probname):
     (ac,wa,tle)=(0,0,0)
     while sampleNo==1 or os.path.exists(workspace_directory+".in/"+str(sampleNo)+".txt"):
         res, t = judge_one_sample(setname,probname,str(sampleNo))
+        #print(res)
+        #print(t)
         if res=="AC":
             print("sample "+str(sampleNo)+": [AC] "+str(t)+"msec")
             ac+=1
