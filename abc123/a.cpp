@@ -3,5 +3,10 @@
 using namespace std;
 using ll = long long;
 int main(){
+    int a[5],k;
+    rep(i,5)cin >> a[i];
+    cin >> k;
+    if(a[4]-a[0]>k)cout << ":(" << endl;
+    else cout << "Yay!" << endl;
     return 0;
 }

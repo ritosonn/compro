@@ -51,5 +51,27 @@
 			"}"
 		],
 		"description": "list of divisors"
+	},
+	"segmenttree":{
+		"prefix": "segmenttree",
+		"body": [
+			"template<typename M,M f(M,M),M M1>",
+			"class SegmentTreeBase{",
+			"    using F=function<M(M,M)>; size_t sz; vector<M> seg;",
+			"public:",
+			"    SegmentTreeBase(size_t n){ sz=1; while(sz<n)sz<<=1; seg.assign(2*sz,M1); }",
+			"    const M& operator[](size_t k) const { return seg[k+sz]; }",
+			"    M& operator[](size_t k){ return seg[k+sz]; }",
+			"    void build(){ for(size_t k=sz-1;k>0;--k)seg[k]=f(seg[2*k], seg[2*k+1]); }",
+			"    void update(size_t k, const M &x) { k+=sz; seg[k]=x; while(k>>=1)seg[k]=f(seg[2*k],seg[2*k+1]); }",
+			"    M query(size_t a, size_t b) { M L=M1,R=M1; for(a+=sz,b+=sz; a<b; a>>=1,b>>=1){ if(a&1)L=f(L,seg[a++]); if(b&1)R=f(seg[--b],R); } return f(L,R); }",
+			"};",
+			"ll func_max(ll a,ll b){ return std::max(a,b); }",
+			"using segmax = SegmentTreeBase<ll,func_max,numeric_limits<ll>::min()>;",
+			"ll func_min(ll a,ll b){ return std::min(a,b); }",
+			"using segmin = SegmentTreeBase<ll,func_min,numeric_limits<ll>::max()>;",
+			"ll func_plus(ll a,ll b){ return a+b; }",
+			"using segplus = SegmentTreeBase<ll,func_plus,0LL>;",
+		]
 	}
 }
