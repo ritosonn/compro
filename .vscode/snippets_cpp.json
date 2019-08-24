@@ -9,6 +9,7 @@
 			"    basic_modint(ll_t x=0):x_((x%mod+mod)%mod){}",
 			"    basic_modint& operator+=(const basic_modint a)       { if((x_+=     a.x_)>=mod)x_-=mod; return *this; }",
 			"    basic_modint& operator-=(const basic_modint a)       { if((x_+= mod-a.x_)>=mod)x_-=mod; return *this; }",
+			"    basic_modint& operator*=(const basic_modint a)       { (x_*=a.x_)%=mod; return *this; }",
 			"    basic_modint  operator+ (const basic_modint a) const { basic_modint res(*this); return res+=a; }",
 			"    basic_modint  operator- (const basic_modint a) const { basic_modint res(*this); return res-=a; }",
 			"    basic_modint  operator* (const basic_modint a) const { basic_modint res(*this); return res*=a; }",
@@ -71,7 +72,7 @@
 			"ll func_min(ll a,ll b){ return std::min(a,b); }",
 			"using segmin = SegmentTreeBase<ll,func_min,numeric_limits<ll>::max()>;",
 			"ll func_plus(ll a,ll b){ return a+b; }",
-			"using segplus = SegmentTreeBase<ll,func_plus,0LL>;",
+			"using segplus = SegmentTreeBase<ll,func_plus,0LL>;"
 		]
 	}
 }
