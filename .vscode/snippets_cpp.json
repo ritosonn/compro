@@ -19,6 +19,8 @@
 			"    basic_modint  operator/ (const basic_modint a) const { basic_modint res(*this); return res/=a; }",
 			"    friend istream& operator>>(istream& ist, basic_modint& a) { ist>>a.x_; return ist; }",
 			"    friend ostream& operator<<(ostream& ost, basic_modint& a) { ost<<a.x_; return ost; }",
+			"    bool operator==(const basic_modint a){return x_==a.x_; }",
+			"    bool operator!=(const basic_modint a){return x_!=a.x_; }",
 			"};",
 			"using mint = basic_modint<ll,ll(1e9+7)>;"
 		],
@@ -73,6 +75,53 @@
 			"using segmin = SegmentTreeBase<ll,func_min,numeric_limits<ll>::max()>;",
 			"ll func_plus(ll a,ll b){ return a+b; }",
 			"using segplus = SegmentTreeBase<ll,func_plus,0LL>;"
-		]
+		],
+		"description": "O(log n) sum of [a,b)"
+	},
+	"compression":{
+		"prefix": "compression",
+		"body": [
+			"template<typename T>",
+			"    vector<int> compression(const vector<T> &v){",
+			"    vector<T> vals; for(auto &vi:v)vals.push_back(vi); sort(vals.begin(),vals.end()); vals.erase(unique(vals.begin(),vals.end()),vals.end());",
+			"    vector<int> ret; rep(i,(int)v.size())ret.push_back((int)(lower_bound(vals.begin(),vals.end(),v[i])-vals.begin())); return ret;",
+			"}"
+		],
+		"description": "compress from vector to [0,vector.size)"
+	},
+	"inversion-number":{
+		"prefix": "inversion number",
+		"body": [
+			"ll inversion_number(const vector<int> &v_zip){",
+			"    ll ret = 0; segplus seg(v_zip.size());",
+			"    for(auto itr=v_zip.begin();itr!=v_zip.end();++itr){ auto t=seg.query(0,*itr); ret += (int)(itr-v_zip.begin())-t; seg.update(*itr,1); }",
+			"    return ret;",
+			"}"
+		],
+		"description": "O(nlogn) inversion number of compressed vector, using segment tree"
+	},
+	"gcd":{
+		"prefix": "gcd",
+		"body": "template<typename T> T gcd_(T a,T b){ return (a%b)?gcd_(b,a%b):b; }",
+		"description": "greatest common divisor"
+	},
+	"unionfind":{
+		"prefix": "unionfind",
+		"body": [
+			"class UnionFind{",
+			"    int l_, cnt_, *parent_, *rank_;",
+			"public:",
+			"    UnionFind(int l):l_(l),cnt_(l){ parent_=new int[l]; rep(i,l)parent_[i]=-1; rank_=new int[l]; rep(i,l)rank_[i]=0; }",
+			"    ~UnionFind(){ delete[] parent_; delete[] rank_; }",
+			"    int root(int x){ return (parent_[x]<0)?x:(parent_[x]=root(parent_[x])); }",
+			"    void unite(int x,int y){ int rx=root(x),ry=root(y); if(rx!=ry){ --cnt_;",
+			"        if(rank_[rx]>rank_[ry]){ parent_[rx]+=parent_[ry]; parent_[ry]=rx; }",
+			"        else{ if(rank_[rx]==rank_[ry])++rank_[ry]; parent_[ry]+=parent_[rx]; parent_[rx]=ry; }}}",
+			"    bool isSameTree(int x,int y){ return root(x)==root(y); }",
+			"    int sizeOf(int x){ return -parent_[root(x)]; }",
+			"    int count_component(){ return cnt_; }",
+			"};"
+		],
+		"description": "O(alpha(n)) union-find tree"
 	}
 }
