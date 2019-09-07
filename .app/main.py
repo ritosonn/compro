@@ -11,7 +11,7 @@ import sys
 from bs4 import BeautifulSoup
 
 compile_option = "-std=c++14 -W -Wall -g"
-workspace_directory = "/home/ritosonn/compro/"
+workspace_directory = os.getcwd()+"/" #"/home/iizuka/git/compro/"
 timeout_sec = 5
 
 def build_cpp(fullpath_noext):
