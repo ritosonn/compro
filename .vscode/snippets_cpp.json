@@ -126,26 +126,39 @@
 	},
 	"graph":{
 		"prefix": "graph",
-		"body": [
-			"using weighted_graph = vector<vector<pair<int,ll>>>;",
-			"using unweighted_graph = vector<vector<int>>;"
-		],
+		"body": "template<typename weight_t> using graph = vector<vector<pair<int,weight_t>>>;",
 		"description": "definitions of graph"
+	},
+	"dijkstra":{
+		"prefix": "dijkstra",
+		"body": [
+			"template<typename weight_t> vector<weight_t> dijkstra(const graph<weight_t> &g,const int e){",
+			"    using node=pair<int,weight_t>; auto cmp=[](node &a,node &b)->bool {return (a.second>b.second);};",
+			"    priority_queue<node,vector<node>,decltype(cmp)> pq(cmp);",
+			"    vector<weight_t> w(g.size(),numeric_limits<weight_t>::max());",
+			"    vector<bool> done(g.size(),false); pq.push({e,0}); w[e]=0;",
+			"    while(!pq.empty()){ auto u=pq.top(); pq.pop(); if(done[u.first])continue; done[u.first]=true;",
+			"        for(auto &v:g[u.first]) if(w[u.first]+v.second<w[v.first]){",
+			"            w[v.first]=w[u.first]+v.second; pq.push({v.first,w[v.first]}); }}",
+			"    return w;",
+			"}"
+		],
+		"description": "O(E+VlogV) shortest path length of non-negative edges (dijkstra's algorithm) "
 	},
 	"dag":{
 		"prefix": ["dag","topologicalsort"],
 		"body": [
-			"bool visit_dag(int n, const unweighted_graph &g, vector<int> &mark, vector<int> &l){",
-			"    if(mark[n]==1)return false; else if(mark[n]==0){ mark[n]=1; for(auto &m:g[n])if(!visit_dag(m,g,mark,l))return false; mark[n]=2; l.push_back(n); } return true; }",
-			"vector<int> topological_sort(const unweighted_graph &g){",
-			"    vector<int> mark(g.size(),0),l; rep(i,g.size())if(mark[i]==0&&!visit_dag(i,g,mark,l))return {}; reverse(l.begin(),l.end()); return l; }",
-			"bool is_dag(const unweighted_graph &g){ return !topological_sort(g).empty(); }",
-			"unweighted_graph inverse(const unweighted_graph &g){",
-			"    unweighted_graph h(g.size()); rep(i,g.size())rep(j,g[i].size())h[g[i][j]].push_back(i); return h; }",
-			"int longest_path_dag(const unweighted_graph &g){",
-			"    auto l=topological_sort(g); if(l.empty())return -1;",
+			"template<typename weight_t> bool visit_dag(int n, const graph<weight_t> &g, vector<int> &mark, vector<int> &l){",
+			"if(mark[n]==1)return false; else if(mark[n]==0){ mark[n]=1; for(auto &m:g[n])if(!visit_dag(m.first,g,mark,l))return false; mark[n]=2; l.push_back(n); } return true; }",
+			"template<typename weight_t> vector<int> topological_sort(const graph<weight_t> &g){",
+			"    vector<int> mark(g.size(),0),l; loop(i,g.size())if(mark[i]==0&&!visit_dag(i,g,mark,l))return {}; reverse(l.begin(),l.end()); return l; }",
+			"template<typename weight_t> bool is_dag(const graph<weight_t> &g){ return !topological_sort(g).empty(); }",
+			"template<typename weight_t> graph<weight_t> inverse(const graph<weight_t> &g){",
+			"    graph<weight_t> h(g.size()); loop(i,g.size())loop(j,g[i].size())h[g[i][j]].push_back(i); return h; }",
+			"template<typename weight_t> int longest_path_dag(const graph<weight_t> &g){",
+			"    auto l=graph<weight_t>(g); if(l.empty())return -1;",
 			"    auto h=inverse(g); vector<int> dist(g.size(),1);",
-			"    rep(i,g.size())rep(j,h[l[i]].size())dist[l[i]]=max(dist[l[i]],1+dist[h[l[i]][j]]);",
+			"    loop(i,g.size())loop(j,h[l[i]].size())dist[l[i]]=max(dist[l[i]],1+dist[h[l[i]][j]]);",
 			"    return *max_element(dist.begin(),dist.end()); }"
 		],
 		"description": "O(E+V) topological sort using DFS, and decide if a graph is directed acyclic graph."
