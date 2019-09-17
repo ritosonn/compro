@@ -162,5 +162,9 @@
 			"    return *max_element(dist.begin(),dist.end()); }"
 		],
 		"description": "O(E+V) topological sort using DFS, and decide if a graph is directed acyclic graph."
+	},
+	"pi":{
+		"prefix": "pi",
+		"body": "constexpr double pi=3.1415926535897932;"
 	}
 }
