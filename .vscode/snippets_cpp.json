@@ -193,7 +193,7 @@
 			"    void bfs(int s){ level.assign(v,-1); queue<int> q; level[s]=0; q.push(s);",
 			"        while(!q.empty()){ int v=q.front(); q.pop();",
 			"            for(auto &e: G[v]) if(e.cap>0 && level[e.to]<0){ level[e.to]=level[v]+1; q.push(e.to); }}}",
-			"    dfs(int v, int t, capacity_t f) { if(v==t)return f;",
+			"    capacity_t dfs(int v, int t, capacity_t f) { if(v==t)return f;",
 			"        for(int& i=itr[v]; i<(int)G[v].size();++i){ edge& e=G[v][i];",
 			"            if(e.cap>0 && level[v]<level[e.to]){ capacity_t d=dfs(e.to,t,min(f,e.cap));",
 			"                if(d>0){ e.cap-=d; G[e.to][e.rev].cap+=d; return d; }}}",
